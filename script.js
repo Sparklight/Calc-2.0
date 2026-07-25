@@ -38,6 +38,15 @@ function btnClick (input) {
     // console.log(newExample);
   }
 
+  if ((lastChar == '.') &  (lastCharTwo == '.')) {      // удаляет вторую подряд "."  
+    let newExample = example.slice(0, -1);
+    inputElement.value = newExample;
+  } 
+  if (example == ".") {                            // добавляет 0 перед "." в пустой строке
+    let newExample = "0" + example
+    inputElement.value = newExample;
+  }                                                 
+
   if (inputElement.value == 'Error') {
     let newExample = example.slice(0, -1);
     inputElement.value = newExample;
