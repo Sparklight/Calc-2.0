@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="stile.css">
+</head>
+<body>
+   <div class="body">
+      <div class="name">
+        <table>
+            <tr>
+                <th>Калькулятор</th>
+            </tr>
+        </table>
+       </div>
+    <div class="btndispbox">
+        <div class="dispbox">
+        
+                        
+                        <!-- <p id="outputA"></p> <p></p> <p></p>          ВРЕМЕННЫЙ ВЫВОД -->
+                    <div class="'window">
+                        <p id="p" class="memoryCheck"></p>
+                         <!-- <input class="outputWindowM" type="text" id="disp" readonly disabled>
+                         <br /> -->
+                        <input class="outputWindow" type="text" id="disp" readonly disabled>
+                        <br />
+                        <input class="outputWindowTwo" type="text" id="disptwo" readonly disabled> 
+                    </div> 
+
+                   <!-- <div class ="deleteButton">
+                        <button onclick="deleteOne()" class="rightBtn">X</button>
+                        <br />
+                        <button onclick="clearDisp()" class="rightBtn">C</button>
+                    </div> -->
+                
+                        
+                 
+            
+        </div>
+            <div class="keysblock">
+            <table> 
+                <tr  class="firstRow">
+                    <td><button onclick="addInMemory()" class="rightBtn" type="submit" >M</button></td>
+                    <td><button onclick="useMemory()"  class="rightBtn" type="submit" >MR</button></td>
+                    <td><button onclick="clearDisp()" class="rightBtn">C</button></td>
+                    <td><button onclick="deleteOne()" class="deleteBtn">X</button></td>
+                </tr> 
+                <tr  class="btnblock">
+                    <td><button onclick="btnClick('7')" id="buttonSeven" class="btngray numberBtn btngray" value="7">7</button></td>
+                    <td><button onclick="btnClick('8')" id="buttonEight" class="btngray numberBtn" type="submit" value="8">8</button></td>
+                    <td><button onclick="btnClick('9')" id="buttonNine" class="btngray numberBtn" type="submit" value="9">9</button></td>
+                    <td><button onclick="btnClick('-')" id="buttonMinus" class="btngray numberBtn" type="submit" value="-">-</button></td>
+                    
+                </tr>
+
+                <tr  class="btnblock">
+                    <td><button onclick="btnClick('4')" id="buttonFour" class="btngray numberBtn" type="submit" value="4">4</button></td>
+                    <td><button onclick="btnClick('5')" id="buttonFive" class="btngray numberBtn" type="submit" value="5">5</button></td>
+                    <td><button onclick="btnClick('6')" id="buttonSix" class="btngray numberBtn" type="submit" value="6">6</button></td>
+                    <td><button onclick="btnClick('*')" id="buttonMultiplied" class="btngray numberBtn" type="submit" value="*">x</button></td>
+                </tr>
+
+                <tr  class="btnblock">
+                    <td><button onclick="btnClick('1')" id="buttonOne" class="btngray numberBtn" type="submit" value="1">1</button></td>
+                    <td><button onclick="btnClick('2')" id="buttonTwo" class="btngray numberBtn" type="submit" value="2">2</button></td>
+                    <td><button onclick="btnClick('3')" id="buttonThree" class="btngray numberBtn" type="submit" value="3">3</button></td>
+                    <td><button onclick="btnClick('+')" id="buttonPlus" class="btngray numberBtn" type="submit" value="+">+</button></td>
+                </tr>
+
+                <tr  class="btnblock">
+                    <td><button onclick="btnClick('0')" id="buttonZero" class="btngray numberBtn" type="submit" value="0">0</button></td>
+                    <td><button onclick="btnClick(',')" id="buttonDot" class="btngray numberBtn" type="submit" value=",">,</button></td>
+                    <td><button onclick="btnClick('/')" id="buttonDivided" class="btngray numberBtn" type="submit" value="/">/</button></td>
+                    <td><button onclick="calculate()" id="buttonEquals" class="btngray numberBtn" type="submit" value="=">=</button></td>
+                </tr>
+                
+        </table> 
+    </div>
+   </div> 
+    <script src="script.js"></script>
+</body>
+</html>
