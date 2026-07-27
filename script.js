@@ -4,18 +4,32 @@ const inputElement = document.getElementById('disp');
 const displaytwo = document.getElementById('disptwo');
 let memory
 let notError
+const symbols = /[+-/*]/;
 
-function btnClick (input) {
+function btnClick(input) {
   inputElement.value += input; 
-    let example = inputElement.value;
+    const example = inputElement.value;
     let lastChar = example[example.length - 1];
     let lastCharTwo = example[example.length - 2];
-
-  const length = example.length;
-  // console.log(length);
-
-    const symbols = /[+-/*]/;
-    let symboltest = (symbols.test(example))
+    const length = example.length;
+    // console.log(length);
+    let symboltest = symbols.test(example);
+    const lastDotIndex = example.lastIndexOf(".");
+    console.log(lastDotIndex);
+    let lastSymbolindex = '0';
+    const matches = [...example.matchAll(/[+-/*]/g)];
+    console.log(lastSymbolindex);
+    
+    if (matches.length > 0) {
+      const lastMatch = matches[matches.length - 1];
+      lastSymbolindex = (lastMatch.index);
+      //console.log(lastMatch.index);
+    }
+    
+    if (lastSymbolindex == 'undefined') {
+      lastSymbolindex = '0';
+      //console.log(lastSymbolindex);
+    }
 
     if (length >= 22) {
        inputElement.value = example.slice(0, -1);
@@ -31,14 +45,31 @@ function btnClick (input) {
       document.getElementsByClassName('outputWindow')[0].style.fontSize = "150%";
     }
   
-  if ((lastChar == '+' || lastChar == '-' || lastChar == '*' || lastChar == '/') & 
-      (lastCharTwo == '+' || lastCharTwo == '-' || lastCharTwo == '*' || lastCharTwo == '/')) {
+  
+   
+    if ((lastChar === '+' || lastChar === '-' || lastChar === '*' || lastChar === '/') && 
+      (lastCharTwo === '+' || lastCharTwo === '-' || lastCharTwo === '*' || lastCharTwo === '/')) {
     let newExample = example.slice(0, -1);
     inputElement.value = newExample;
     // console.log(newExample);
   }
+  
+/** 
+  if (['+', '-', '*', '/'].some(function(element) { return element === lastChar && element === lastCharTwo})) {
+    let newExample = example.slice(0, -1);
+    inputElement.value = newExample;
+  }
 
-  if ((lastChar == '.') &  (lastCharTwo == '.')) {      // удаляет вторую подряд "."  
+  if ((lastChar === ['+', '-', '*', '/']) && (lastCharTwo === ['+', '-', '*', '/'])) {
+    let newExample = example.slice(0, -1);
+    inputElement.value = newExample;
+  }
+*/
+  if ((lastDotIndex > lastSymbolindex) && (lastChar === '.')) {       // НЕ РАБОТАЕТ (должно запрещать ставить вторую "." в любых ситцациях)
+    let newExample = example.slice(0, -1);
+    inputElement.value = newExample;
+  }
+  else if ((lastChar === '.') && (lastCharTwo === '.')) {      // удаляет вторую подряд "."  
     let newExample = example.slice(0, -1);
     inputElement.value = newExample;
   } 
@@ -75,12 +106,13 @@ function clearDisp () {
    memory = '';
    notError = '';
    document.getElementsByClassName('outputWindow')[0].style.fontSize = "150%";
-   let paragraph = document.getElementById('p');
-    paragraph.textContent = '';
+   const paragraph = document.getElementById('p');
+   paragraph.textContent = '';
 }
 
 function calculate() {
-    let example = inputElement.value;
+    const example = inputElement.value;
+    let previous = example;
     try {
         inputElement.value = eval (inputElement.value);
     } 
@@ -94,6 +126,9 @@ function calculate() {
              inputElement.value == 'NaN') {
         inputElement.value = 'Error';
     }
+    //if (inputElement.value == "Error") {                                                 //при появлении "Error" возвращает предыдущее значение переменной
+    //  inputElement.value = previous;
+    //}
 
     const length = example.length;
     if (length >= 22) {
@@ -108,15 +143,17 @@ function calculate() {
     }
     else if (length < 13){
       document.getElementsByClassName('outputWindow')[0].style.fontSize = "150%";
-    }
-   
+    }   
 }
+
 function deleteOne() {
-    let example = inputElement.value;
+    const example = inputElement.value;
     let newExample = example.slice(0, -1);
+    if (inputElement.value == 'Error') {     // удаляет всю строку при надписи Error
+      newExample = '';
+    }
     inputElement.value = newExample;
     console.log(inputElement.value);
-
     const length = example.length;
     console.log(length);
     if (length >= 18){
@@ -133,7 +170,7 @@ function deleteOne() {
 function addInMemory() {
     let addMemory = inputElement.value;
     memory = addMemory.replace(/[^\w\s]|_/g, "");
-    let paragraph = document.getElementById('p');
+    const paragraph = document.getElementById('p');
     paragraph.textContent = 'm';
     if (inputElement.value == '') {
       paragraph.textContent = '';
