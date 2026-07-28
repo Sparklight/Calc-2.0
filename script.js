@@ -12,25 +12,28 @@ function btnClick(input) {
     let lastChar = example[example.length - 1];
     let lastCharTwo = example[example.length - 2];
     const length = example.length;
-    // console.log(length);
     let symboltest = symbols.test(example);
     const lastDotIndex = example.lastIndexOf(".");
-    console.log(lastDotIndex);
-    let lastSymbolindex = '0';
-    const matches = [...example.matchAll(/[+-/*]/g)];
-    console.log(lastSymbolindex);
-    
+    const matches = [...example.matchAll(/[+\-*\/]/g)];
+    let lastSymbolindex; //= '0';
+    let quantityDot = example.split(".").length - 1;
+    console.log(quantityDot)
     if (matches.length > 0) {
       const lastMatch = matches[matches.length - 1];
       lastSymbolindex = (lastMatch.index);
-      //console.log(lastMatch.index);
     }
     
-    if (lastSymbolindex == 'undefined') {
-      lastSymbolindex = '0';
+     /** if (lastSymbolindex === undefined) {             // если undefined то = 0 
+      lastSymbolindex = '2';
       //console.log(lastSymbolindex);
-    }
+    } */
 
+
+    const fontSize = stringLength(length,example);
+    console.log("fontSaze:",fontSize)
+
+
+      /** 
     if (length >= 22) {
        inputElement.value = example.slice(0, -1);
     }
@@ -43,7 +46,7 @@ function btnClick(input) {
     }
     else if (length < 13){
       document.getElementsByClassName('outputWindow')[0].style.fontSize = "150%";
-    }
+    } */
   
   
    
@@ -51,7 +54,6 @@ function btnClick(input) {
       (lastCharTwo === '+' || lastCharTwo === '-' || lastCharTwo === '*' || lastCharTwo === '/')) {
     let newExample = example.slice(0, -1);
     inputElement.value = newExample;
-    // console.log(newExample);
   }
   
 /** 
@@ -65,10 +67,17 @@ function btnClick(input) {
     inputElement.value = newExample;
   }
 */
-  if ((lastDotIndex > lastSymbolindex) && (lastChar === '.')) {       // НЕ РАБОТАЕТ (должно запрещать ставить вторую "." в любых ситцациях)
+//console.log(lastSymbolindex);
+//console.log(lastDotIndex);
+
+  if ((countDotsAfterLastOp(example) > '1') && (lastChar === '.')) {       // НЕ РАБОТАЕТ (должно запрещать ставить вторую "." в любых ситцациях)
     let newExample = example.slice(0, -1);
     inputElement.value = newExample;
   }
+  else if ((lastSymbolindex === undefined) && (quantityDot > '1') && (lastChar === '.')) {
+     let newExample = example.slice(0, -1);
+    inputElement.value = newExample;
+  }   
   else if ((lastChar === '.') && (lastCharTwo === '.')) {      // удаляет вторую подряд "."  
     let newExample = example.slice(0, -1);
     inputElement.value = newExample;
@@ -97,6 +106,13 @@ function btnClick(input) {
     if (displaytwo.value == "undefined") {
       displaytwo.value = '';
     }
+  } 
+
+  function countDotsAfterLastOp(example) {                  // ищет в строке последний математический знак и определяет колличество '.' после него
+  const match = example.match(/[+\-*/]([^+\-*/]*)$/);
+  if (!match) return 0;
+  const restOfString = match[1];
+  return restOfString.split('.').length - 1;
   }
 }
 
@@ -155,7 +171,7 @@ function deleteOne() {
     inputElement.value = newExample;
     console.log(inputElement.value);
     const length = example.length;
-    console.log(length);
+    //console.log(length);
     if (length >= 18){
       document.getElementsByClassName('outputWindow')[0].style.fontSize = "90%";
     }
@@ -180,3 +196,19 @@ function addInMemory() {
 function useMemory() {
     inputElement.value += memory
 }
+
+function stringLength(length, example) {
+  if (length >= 22) {
+      return inputElement.value = example.slice(0, -1);
+    }
+
+    if (length >= 18){
+      return document.getElementsByClassName('outputWindow')[0].style.fontSize = "90%";
+    }
+    else if (length >= 14) {
+      return document.getElementsByClassName('outputWindow')[0].style.fontSize = "110%";
+    }
+    else if (length < 13){
+      return document.getElementsByClassName('outputWindow')[0].style.fontSize = "150%";
+    }
+  }
