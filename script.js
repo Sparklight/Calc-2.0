@@ -29,7 +29,7 @@ function btnClick(input) {
     } */
 
 
-    const fontSize = stringLength(length,example);
+    const fontSize = stringLength(length,example);                //      ДОДЕЛАТЬ
     console.log("fontSaze:",fontSize)
 
 
@@ -49,28 +49,33 @@ function btnClick(input) {
     } */
   
   
-   
+   /** 
     if ((lastChar === '+' || lastChar === '-' || lastChar === '*' || lastChar === '/') && 
       (lastCharTwo === '+' || lastCharTwo === '-' || lastCharTwo === '*' || lastCharTwo === '/')) {
     let newExample = example.slice(0, -1);
     inputElement.value = newExample;
   }
-  
-/** 
-  if (['+', '-', '*', '/'].some(function(element) { return element === lastChar && element === lastCharTwo})) {
-    let newExample = example.slice(0, -1);
-    inputElement.value = newExample;
-  }
-
-  if ((lastChar === ['+', '-', '*', '/']) && (lastCharTwo === ['+', '-', '*', '/'])) {
-    let newExample = example.slice(0, -1);
-    inputElement.value = newExample;
-  }
 */
+
+if (symbols.test(lastChar) && symbols.test(lastCharTwo)) {
+    let newExample = example.slice(0, -1);
+    inputElement.value = newExample;
+}
+
+/** 
+  const qw = ['+', '-', '*', '/'];                          // Рабочий вариант
+  const one = qw.some(char => lastChar.includes(char));
+  const two = qw.some(char => lastCharTwo.includes(char));
+  const result = one && two;
+  if (result === true) {
+    let newExample = example.slice(0, -1);
+    inputElement.value = newExample;
+  }
+ */
 //console.log(lastSymbolindex);
 //console.log(lastDotIndex);
 
-  if ((countDotsAfterLastOp(example) > '1') && (lastChar === '.')) {       // НЕ РАБОТАЕТ (должно запрещать ставить вторую "." в любых ситцациях)
+  if ((countDotsAfterLastOp(example) > '1') && (lastChar === '.')) {       // запрещает ставить вторую "." в любых ситуациях)
     let newExample = example.slice(0, -1);
     inputElement.value = newExample;
   }
