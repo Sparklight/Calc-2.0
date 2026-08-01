@@ -17,62 +17,17 @@ function btnClick(input) {
     const matches = [...example.matchAll(/[+\-*\/]/g)];
     let lastSymbolindex; //= '0';
     let quantityDot = example.split(".").length - 1;
-    console.log(quantityDot)
     if (matches.length > 0) {
       const lastMatch = matches[matches.length - 1];
       lastSymbolindex = (lastMatch.index);
     }
     
-     /** if (lastSymbolindex === undefined) {             // если undefined то = 0 
-      lastSymbolindex = '2';
-      //console.log(lastSymbolindex);
-    } */
+  stringLength(length,example);               
 
-
-    stringLength(length,example);               
-
-
-      /** 
-    if (length >= 22) {
-       inputElement.value = example.slice(0, -1);
-    }
-
-    if (length >= 18){
-      document.getElementsByClassName('outputWindow')[0].style.fontSize = "90%";
-    }
-    else if (length >= 14) {
-      document.getElementsByClassName('outputWindow')[0].style.fontSize = "110%";
-    }
-    else if (length < 13){
-      document.getElementsByClassName('outputWindow')[0].style.fontSize = "150%";
-    } */
-  
-  
-   /** 
-    if ((lastChar === '+' || lastChar === '-' || lastChar === '*' || lastChar === '/') && 
-      (lastCharTwo === '+' || lastCharTwo === '-' || lastCharTwo === '*' || lastCharTwo === '/')) {
+  if (symbols.test(lastChar) && symbols.test(lastCharTwo)) {    // поиск через .test (лучший вариант, потому что используется переменная symbols)
     let newExample = example.slice(0, -1);
     inputElement.value = newExample;
   }
-*/
-
-if (symbols.test(lastChar) && symbols.test(lastCharTwo)) {    // поиск через .test (лучший вариант, потому что используется переменная symbols)
-    let newExample = example.slice(0, -1);
-    inputElement.value = newExample;
-}
-
-/** 
-  const qw = ['+', '-', '*', '/'];                          // Рабочий вариант
-  const one = qw.some(char => lastChar.includes(char));
-  const two = qw.some(char => lastCharTwo.includes(char));
-  const result = one && two;
-  if (result === true) {
-    let newExample = example.slice(0, -1);
-    inputElement.value = newExample;
-  }
- */
-//console.log(lastSymbolindex);
-//console.log(lastDotIndex);
 
   if ((countDotsAfterLastOp(example) > '1') && (lastChar === '.')) {       // запрещает ставить вторую "." в любых ситуациях)
     let newExample = example.slice(0, -1);
@@ -146,26 +101,9 @@ function calculate() {
              inputElement.value == 'NaN') {
         inputElement.value = 'Error';
     }
-    //if (inputElement.value == "Error") {                                                 //при появлении "Error" возвращает предыдущее значение переменной
-    //  inputElement.value = previous;
-    //}
 
     const length = example.length;
     stringLength(length,example);
-
-     /** if (length >= 22) {
-       inputElement.value = example.slice(0, -1);
-    }
-
-    if (length >= 18){
-      document.getElementsByClassName('outputWindow')[0].style.fontSize = "90%";
-    }
-    else if (length >= 14) {
-      document.getElementsByClassName('outputWindow')[0].style.fontSize = "110%";
-    }
-    else if (length < 13){
-      document.getElementsByClassName('outputWindow')[0].style.fontSize = "150%";
-    }  */ 
 }
 
 function deleteOne() {
@@ -178,15 +116,6 @@ function deleteOne() {
     console.log(inputElement.value);
     const length = example.length;
     stringLength(length,example);
-    /** if (length >= 18){
-      document.getElementsByClassName('outputWindow')[0].style.fontSize = "90%";
-    }
-    else if (length >= 17) {
-      document.getElementsByClassName('outputWindow')[0].style.fontSize = "110%";
-    }
-    else if (length <= 13){
-      document.getElementsByClassName('outputWindow')[0].style.fontSize = "150%";
-    } */
 }
 
 function addInMemory() {
@@ -217,4 +146,5 @@ function stringLength(length, example) {
     else if (length < 13){
       return document.getElementsByClassName('outputWindow')[0].style.fontSize = "150%";
     }
-  }
+}
+  
