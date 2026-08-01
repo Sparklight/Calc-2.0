@@ -29,8 +29,7 @@ function btnClick(input) {
     } */
 
 
-    const fontSize = stringLength(length,example);                //      ДОДЕЛАТЬ
-    console.log("fontSaze:",fontSize)
+    stringLength(length,example);               
 
 
       /** 
@@ -57,7 +56,7 @@ function btnClick(input) {
   }
 */
 
-if (symbols.test(lastChar) && symbols.test(lastCharTwo)) {
+if (symbols.test(lastChar) && symbols.test(lastCharTwo)) {    // поиск через .test (лучший вариант, потому что используется переменная symbols)
     let newExample = example.slice(0, -1);
     inputElement.value = newExample;
 }
@@ -100,7 +99,7 @@ if (symbols.test(lastChar) && symbols.test(lastCharTwo)) {
   if (symboltest == true) {
     try {
       displaytwo.value = eval (inputElement.value); 
-      notError = displaytwo.value
+      notError = displaytwo.value;
     }
     catch (error) {
         displaytwo.value = "Error";
@@ -152,7 +151,9 @@ function calculate() {
     //}
 
     const length = example.length;
-    if (length >= 22) {
+    stringLength(length,example);
+
+     /** if (length >= 22) {
        inputElement.value = example.slice(0, -1);
     }
 
@@ -164,7 +165,7 @@ function calculate() {
     }
     else if (length < 13){
       document.getElementsByClassName('outputWindow')[0].style.fontSize = "150%";
-    }   
+    }  */ 
 }
 
 function deleteOne() {
@@ -176,8 +177,8 @@ function deleteOne() {
     inputElement.value = newExample;
     console.log(inputElement.value);
     const length = example.length;
-    //console.log(length);
-    if (length >= 18){
+    stringLength(length,example);
+    /** if (length >= 18){
       document.getElementsByClassName('outputWindow')[0].style.fontSize = "90%";
     }
     else if (length >= 17) {
@@ -185,7 +186,7 @@ function deleteOne() {
     }
     else if (length <= 13){
       document.getElementsByClassName('outputWindow')[0].style.fontSize = "150%";
-    }
+    } */
 }
 
 function addInMemory() {
@@ -199,7 +200,7 @@ function addInMemory() {
 }
 
 function useMemory() {
-    inputElement.value += memory
+    inputElement.value += memory;
 }
 
 function stringLength(length, example) {
