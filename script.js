@@ -2,29 +2,31 @@
 
 const inputElement = document.getElementById('disp');
 const displaytwo = document.getElementById('disptwo');
-let memory
-let notError
-const symbols = /[+-/*]/;
+let memory;
+let notError;
+const symbols = ['+', '-', '/', '*'];
 
 function btnClick(input) {
   inputElement.value += input; 
     const example = inputElement.value;
+    const length = example.length;
     let lastChar = example[example.length - 1];
     let lastCharTwo = example[example.length - 2];
-    const length = example.length;
-    let symboltest = symbols.test(example);
-    const lastDotIndex = example.lastIndexOf(".");
+    let symboltest = symbols.includes(example);       // ДОДЕЛАТЬ не подходит ( попробовать через some или for)
+    console.log(symboltest);
+    console.log(example);
+    // const lastDotIndex = example.lastIndexOf(".");
     const matches = [...example.matchAll(/[+\-*\/]/g)];
     let lastSymbolindex; //= '0';
     let quantityDot = example.split(".").length - 1;
     if (matches.length > 0) {
       const lastMatch = matches[matches.length - 1];
-      lastSymbolindex = (lastMatch.index);
+      lastSymbolindex = lastMatch.index;
     }
     
   stringLength(length,example);               
 
-  if (symbols.test(lastChar) && symbols.test(lastCharTwo)) {    // поиск через .test (лучший вариант, потому что используется переменная symbols)
+  if (symbols.includes(lastChar) && symbols.includes(lastCharTwo)) {    // поиск через .test (лучший вариант, потому что используется переменная symbols)
     let newExample = example.slice(0, -1);
     inputElement.value = newExample;
   }
