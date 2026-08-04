@@ -7,23 +7,19 @@ let notError;
 const outputWindow = document.querySelector('.outputWindow')
 const symbols = ['+', '-', '/', '*'];
 
-function countDotsAfterLastOp(example) {                  // ищет в строке последний математический знак и определяет колличество '.' после него
+function countDotsAfterLastOp(example) {               // ищет в строке последний математический знак и определяет колличество '.' после него, если не находит, проверяет всю строку
   const match = example.match(/[+\-*/]([^+\-*/]*)$/);
-  if (!match) return 0;
-  const restOfString = match[1];
-  return restOfString.split('.').length - 1;
+  const currentNumberStr = match ? match[1] : example;
+  return currentNumberStr.split('.').length - 1;
 }
 
-function btnClick(input) {
+function btnClick(input) {    // ты писал, что функция нечитаемая, она стала короче, но не уверен, что достаточно
   inputElement.value += input; 
   const example = inputElement.value;
   const length = example.length;
   const lastChar = example.at(-1);
   const lastCharTwo = example.at(-2);
-  let symboltest = symbols.some(char => example.includes(char));       // ДОДЕЛАТЬ не подходит (попробовать через some или for)
-  //console.log(symboltest);
-  //console.log(example);
-  // const lastDotIndex = example.lastIndexOf(".");
+  let symboltest = symbols.some(char => example.includes(char));
   const matches = [...example.matchAll(/[+\-*\/]/g)];
   let lastSymbolindex; //= '0';
   let quantityDot = example.split(".").length - 1;
@@ -33,22 +29,14 @@ function btnClick(input) {
     lastSymbolindex = lastMatch.index;
   }
     
-  stringLength(length,example);               
+  stringLength(example);               
 
   if (symbols.includes(lastChar) && symbols.includes(lastCharTwo)) {    
     let newExample = example.slice(0, -1);
     inputElement.value = newExample;
   }
 
-  if ((countDotsAfterLastOp(example) > 1) && (lastChar === '.')) {       // запрещает ставить вторую "." в любых ситуациях)
-    inputElement.value = example.slice(0, -1);
-  }
-
-  else if ((lastSymbolindex === undefined) && (quantityDot > 1) && (lastChar === '.')) {
-    inputElement.value = example.slice(0, -1);
-  }
-
-  else if ((lastChar === '.') && (lastCharTwo === '.')) {      // удаляет вторую подряд "."  
+  if ((lastChar === '.') && (countDotsAfterLastOp(example)) > 1) {
     inputElement.value = example.slice(0, -1);
   }
 
@@ -74,18 +62,7 @@ function btnClick(input) {
     if (displayTwo.value === "undefined") {
       displayTwo.value = '';
     }
-  }
-  /** 
-  let dot = '';                                     //ДОДЕЛАТЬ
-  if (lastChar === '.') {
-    dot = 'true'
-  }
-  if (dot ===true )
-  let symbolCheck = symbols.includes(lastChar);
-  //console.log(symbolCheck);
-  console.log(Dot);
-  */
-  
+  } 
 }
 
 function clearDisp () {
@@ -120,7 +97,7 @@ function calculate() {
 
   const length = example.length;
 
-  stringLength(length,example);
+  stringLength(example);
 }
 
 function deleteOne() {
@@ -132,7 +109,7 @@ function deleteOne() {
   inputElement.value = newExample;
   console.log(inputElement.value);
   const length = example.length;
-  stringLength(length,example);
+  stringLength(example);
 }
 
 function addInMemory() {
@@ -149,46 +126,22 @@ function useMemory() {
   inputElement.value += memory;
 }
 
-function stringLength(length, example) {
-  if (length >= 22) {
+function stringLength(example) {
+  if (example.length >= 22) {
     return inputElement.value = example.slice(0, -1);
   }
 
-  if (length >= 18){
+  if (example.length >= 18){
     return outputWindow.style.fontSize = "90%";
   }
 
-  else if (length >= 14) {
+  else if (example.length >= 14) {
     return outputWindow.style.fontSize = "110%";
   }
 
-  else if (length < 13){
+  else if (example.length < 13){
     return outputWindow.style.fontSize = "150%";
   }
 }
 
-
-
-
-
-
-/** 
-function stringLength(length, example) {
-  if (length >= 22) {
-    return inputElement.value = example.slice(0, -1);
-  }
-
-  if (length >= 18){
-    return document.getElementsByClassName('outputWindow')[0].style.fontSize = "90%";
-  }
-
-  else if (length >= 14) {
-    return document.getElementsByClassName('outputWindow')[0].style.fontSize = "110%";
-  }
-
-  else if (length < 13){
-    return document.getElementsByClassName('outputWindow')[0].style.fontSize = "150%";
-  }
-}
-  */
   
